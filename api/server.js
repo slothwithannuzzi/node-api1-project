@@ -42,8 +42,8 @@ server.post('/api/users', (req,res) => {
     const { name, bio } = req.body
     User.insert({ name, bio })
         .then(user => {
-            if(name === '' || bio === ''){
-                res.status(400).json({ message: 'Please provide nae and bio for user'} )
+            if(!name || !bio ){
+                res.status(400).json({ message: 'Please provide name and bio for user'} )
             } else{
             res.status(201).json(user)
             }
@@ -62,7 +62,7 @@ server.put('/api/users/:id', (req, res) => {
         .then(updated => {
             if(!updated){
                 res.status(404).json({ message: 'The user with the specified ID does not exist.'})
-            } else if(name === '' || bio === '') {
+            } else if(!name || !bio ) {
                 res.status(400).json({ message: 'Please provide nae and bio for user'} )
             } 
             else {
